@@ -1,0 +1,53 @@
+### Making Student with Good Data
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "studentId": "32425",
+  "name": "Luke",
+  "age": 19,
+  "gender": "M",
+  "majors": ["Computer Software", "Robotics"],
+  "graduationYear": 2019
+}
+### Making Student with Bad Data
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "studentId": "",
+  "name": "",
+  "age": -1,
+  "gender": "M",
+  "majors": ["Computer Software", "Robotics"],
+  "graduationYear": 2019
+}
+
+
+###
+PATCH http://localhost:8080/update/1
+Content-Type: application/json
+
+{
+  "name": "Sue",
+  "gender": "Non-binary"
+}
+
+<> 2024-07-17T084925.200.txt
+<> 2024-07-17T083901.200.txt
+
+###
+GET http://localhost:8080/all
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200)
+    });
+%}
+
+###
+DELETE http://localhost:8080/delete/1
+
+### Fine by Name
+GET http://localhost:8080/findByName/Luke
+

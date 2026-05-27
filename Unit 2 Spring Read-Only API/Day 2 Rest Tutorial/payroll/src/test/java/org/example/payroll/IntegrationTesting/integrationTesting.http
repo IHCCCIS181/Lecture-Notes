@@ -1,0 +1,21 @@
+# integration testing
+
+###
+GET http://localhost:8080/employees
+
+###
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+  "name": "Luke",
+  "role": "Instructor"
+}
+
+###
+# Should return Frodo Baggins
+GET http://localhost:8080/employees/2
+
+###
+# Make sure the POST was run first. 3 (Luke) should be deleted
+DELETE http://localhost:8080/employees/3

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Betty",
+    "age": 18,
+    "gender": "F"
+  },
+  {
+    "name": "Bob",
+    "age": 22,
+    "gender": "M",
+    "major": [
+      "Software Development",
+      "Robotics"
+    ]
+  },
+  {
+    "name": "Jane",
+    "age": 27,
+    "gender": "F",
+    "major": ["Math"],
+    "graduation": "2017"
+  }
+]

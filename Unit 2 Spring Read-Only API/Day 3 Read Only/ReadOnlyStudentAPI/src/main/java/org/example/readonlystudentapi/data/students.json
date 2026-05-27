@@ -1,0 +1,28 @@
+[
+  {
+    "id": 0,
+    "name": "Bob",
+    "age": 19,
+    "gender": "M",
+    "major": [
+      "Computer Software Development",
+      "Robotics"
+    ],
+    "graduationYear": 2018
+  },
+  {
+    "id": 1,
+    "name": "Jill",
+    "age": 18,
+    "gender": "F",
+    "major": [
+      "Computer Software Development"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Joe",
+    "age": 19,
+    "gender": "M"
+  }
+]

@@ -1,0 +1,63 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Feedback Form</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>Submit Your Feedback</h2>-->
+
+<!--<form th:object="${feedback}">-->
+<!--    <div>-->
+<!--        <label for="satisfactionLevel">Satisfaction Level:</label>-->
+<!--        <select id="satisfactionLevel" name="satisfactionLevel" th:field="satisfactionLevel">-->
+<!--            <option th:each="level : ${T(org.example.moodform.SatisfactionLevel).values()}"-->
+<!--                    th:value="${level.name()}"-->
+<!--                    th:text="${level.name()}"></option>-->
+<!--        </select>-->
+<!--        <p th:if="${#fields.hasErrors('satisfactionLevel')}" th:errors="*{satisfactionLevel}"></p>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="comment">Comment:</label>-->
+<!--        <textarea id="comment" name="comment" th:field="*{comment}"></textarea>-->
+<!--        <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></p>-->
+<!--    </div>-->
+<!--    <button type="submit">Submit</button>-->
+<!--</form>-->
+
+<!--<p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+<h2>Submit Your Feedback</h2>
+
+<form th:object="${feedback}">
+    <div>
+        <label for="satisfactionLevel">Satisfaction Level:</label>
+        <select id="satisfactionLevel" name="satisfactionLevel">
+            <option value="VERY_UNSATISFIED">😞</option>
+            <option value="UNSATISFIED">😕</option>
+            <option value="NEUTRAL">😐</option>
+            <option value="SATISFIED">😊</option>
+            <option value="EXTREMELY_SATISFIED">😍</option>
+        </select>
+        <p th:if="${#fields.hasErrors('satisfactionLevel')}" th:errors="*{satisfactionLevel}"></p>
+    </div>
+    <div>
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" th:field="*{comment}"></textarea>
+        <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></p>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+<!--<p th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></p>-->
+
+</body>
+</html>

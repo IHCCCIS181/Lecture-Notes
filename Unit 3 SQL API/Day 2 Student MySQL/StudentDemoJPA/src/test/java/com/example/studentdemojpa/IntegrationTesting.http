@@ -1,0 +1,15 @@
+###
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "studentId": "54354",
+  "name": "Bob",
+  "age": 18,
+  "gender": "M",
+  "majors": ["computer software development", "Robotics"],
+  "graduationYear": 2018
+}
+
+###
+GET http://localhost:8080/all

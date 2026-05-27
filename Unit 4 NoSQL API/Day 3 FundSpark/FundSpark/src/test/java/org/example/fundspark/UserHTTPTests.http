@@ -1,0 +1,8 @@
+### Create Account
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "username": "sorrymint",
+  "password": "Password@23"
+}

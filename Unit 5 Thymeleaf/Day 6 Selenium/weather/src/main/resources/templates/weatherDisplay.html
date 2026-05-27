@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en-US">
+<head>
+    <title>Weather Display</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>Weather Information</h1>
+<p>Only fill out one field</p>
+
+<form th:action="@{?city=${param.city}&state=${param.state}}" method="get" th:object="${null}">
+    <label for="city">Enter City:</label>
+    <input type="text" id="city" name="city"><br><br>
+
+    <label for="state">Select State:</label>
+    <select id="state" name="state">
+<!--        TOOD make this loop thought enum values-->
+        <option value="">-- Select --</option>
+        <option value="IA">Iowa</option>
+        <option value="AK">Alaska</option>
+    </select><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>City</th>
+        <th>State</th>
+        <th>Temperature (C)</th>
+        <th>Temperature (F)</th>
+        <th>Precipitation</th>
+        <th>Humidity</th>
+        <th>Wind Speed (km/h)</th>
+        <th>Wind Speed (mph)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="weather : ${weatherList}">
+        <td id="cityName" th:text="${weather.city}"></td>
+        <td th:text="${weather.state}"></td>
+        <td th:text="${weather.tempC}"></td>
+        <td th:text="${weather.tempF}"></td>
+        <td th:text="${weather.precipitation}"></td>
+        <td th:text="${weather.humidity}"></td>
+        <td th:text="${weather.windKmH}"></td>
+        <td th:text="${weather.windMpH}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

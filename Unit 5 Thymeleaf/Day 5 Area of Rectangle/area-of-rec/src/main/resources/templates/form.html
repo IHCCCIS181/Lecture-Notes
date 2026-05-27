@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en-US">
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Area of Rectangle</title>
+</head>
+<body>
+<div class="container">
+    <img src="/assets/Triangle-1.png"/>
+    <form class="container" action="#" th:action="@{/}" th:object="${rectangle}" method="post">
+
+        <p>
+            <label>Length: <input class="input-field" type="number" th:field="*{length}"/>
+                <span th:if="${#fields.hasErrors('length')}" th:errors="*{length}" class="error"></span>
+            </label>
+        </p>
+        <p>
+            <label>Width: <input class="input-field" type="number" th:field="*{width}"/>
+                <span th:if="${#fields.hasErrors('width')}" th:errors="*{width}" class="error"></span>
+            </label>
+        </p>
+        <p><input class="submit-btn" type="submit" value="Calculate Area"/></p>
+    </form>
+</div>
+</body>
+</html>

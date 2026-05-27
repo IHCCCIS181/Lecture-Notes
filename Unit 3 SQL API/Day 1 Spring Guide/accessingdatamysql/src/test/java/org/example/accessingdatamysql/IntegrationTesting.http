@@ -1,0 +1,9 @@
+###
+GET http://localhost:8080/demo/all
+
+###
+POST http://localhost:8080/demo/add?
+    name={{$random.alphanumeric(8)}}&
+    email={{$random.alphanumeric(8)}}
+    Content-Type: application/x-www-form-urlencoded
+

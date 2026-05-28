@@ -4,19 +4,11 @@ Today we will install mysql and build a simple project to create a db and a tabl
 
 ## Install mySQL
 
-### Linux
+Using docker / podman.
 
-Run the following commands
+[How to Install mySQL](../../Install%20MySQL/Install%20MySQL%20Docker.md)
 
-#### Install
-
-Using docker / podman is most easy
-
-<!-- ```
-$ sudo setenforce 0
-``` -->
-
-### Create the Project
+## Create the Project
 
 You will want to install maven if you have not already: https://maven.apache.org/install.html
 
@@ -31,11 +23,43 @@ You can get the driver .jar from your system (it is downloaded with mySQL) or yo
 - [Mavan Repo](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
 
 ```xml
+<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>8.4.0</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.38</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+- We also want to download Lombok to make our lives easier.
+- We need to change the maven-compiler-plugin to use the annotation processor for lombok.
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.38</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 ### Model

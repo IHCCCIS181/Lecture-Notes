@@ -1,0 +1,48 @@
+@host = localhost
+@port = 8080
+@baseUrl = http://{{host}}:{{port}}
+@employeesEndpoint = {{baseUrl}}/employees
+
+### Get all employees
+GET {{employeesEndpoint}}
+Accept: application/json
+
+### Create an employee
+# @name createEmployee
+POST {{employeesEndpoint}}
+Content-Type: application/json
+Accept: application/json
+
+{
+	"name": "Jane Doe",
+	"role": "Engineer"
+}
+
+### Reuse the employee created above
+@employeeId = {{createEmployee.response.body.$.id}}
+@employeeEndpoint = {{employeesEndpoint}}/{{employeeId}}
+
+### Get one employee
+GET {{employeeEndpoint}}
+Accept: application/json
+
+### Replace an employee
+PUT {{employeeEndpoint}}
+Content-Type: application/json
+Accept: application/json
+
+{
+	"name": "Jane Doe",
+	"role": "Senior Engineer"
+}
+
+### Confirm the updated employee
+GET {{employeeEndpoint}}
+Accept: application/json
+
+### Delete an employee
+DELETE {{employeeEndpoint}}
+
+### Confirm the remaining employee collection
+GET {{employeesEndpoint}}
+Accept: application/json

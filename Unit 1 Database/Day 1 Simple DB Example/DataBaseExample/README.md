@@ -2,6 +2,8 @@
 
 Today we will install mysql and build a simple project to create a db and a table
 
+<!-- TODO rebuild L2 and then back port it to L1 so they line up better for more code reuse for L2. Make it kind of part 1 and 2 -->
+
 ## Install mySQL
 
 Using docker / podman.

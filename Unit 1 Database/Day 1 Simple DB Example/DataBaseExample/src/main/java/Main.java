@@ -40,6 +40,7 @@ public class Main {
     }
 
     private static void seedTable() {
+        //TODO - simplify the way to declare and add students to the list.
         students = new ArrayList<>();
         students.add(new Graduate("Betty", 23, 'F'));
         students.add(
@@ -58,23 +59,21 @@ public class Main {
                         'M',
                         new ArrayList<>(List.of("Math")),
                         2017));
-        Statement s;
-        try {
-            s = conn.createStatement();
-            for (Graduate p : students) {
-                String sql;
-                    sql = "INSERT INTO student (name, age, gender, major, graduation) VALUES ('" +
-                            p.getName() + "', " +
-                            p.getAge() + ", '" +
-                            p.getGender() + "', '" +
-                            String.join(",", p.getMajors()) + "', " +
-                            p.getGraduationYear() + ");";
-
-                s.executeUpdate(sql);
+        PreparedStatement ps;
+        try{
+            ps = conn.prepareStatement("INSERT INTO STUDENTS (name, age, gender, major, graduation) VALUES (?, ?, ?, ?, ?)");
+            for(Graduate student : students){
+                ps.setString(1, student.getName());
+                ps.setInt(2, student.getAge());
+                ps.setString(3, String.valueOf(student.getGender()));
+                ps.setString(4, String.join(",", student.getMajor()));
+                ps.setInt(5, student.getGraduationYear());
+                ps.executeUpdate();
+                conn.commit();
             }
-        } catch (SQLException ex) {
-            System.out.println("Error Seeding DB");
-            ex.printStackTrace();
+        }catch(SQLException e){
+            System.out.println("Error seeding table");
+            System.exit(1);
         }
     }
 
@@ -130,27 +129,28 @@ public class Main {
 
             conn.setAutoCommit(false);
             s.executeUpdate("DROP TABLE IF EXISTS student");
-            String createStatement = (
-                    "CREATE TABLE student ("
-                            + "id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-                            + "PRIMARY KEY (id),"
-                            + "name VARCHAR(40), "
-                            + "age INT, "
-                            + "gender CHAR(1), "
-                            + "major VARCHAR(225),"
-                            + "graduation INT"
-                            + ")"
-            );
-            System.out.println(createStatement);
-            s.executeUpdate(createStatement);
+            String sql = """
+                CREATE TABLE STUDENTS (
+                    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                    PRIMARY KEY (id),
+                    name VARCHAR(40),
+                    age INT,
+                    gender CHAR(1),
+                    major VARCHAR(255),
+                    graduation INT
+                );
+            """;
+            System.out.println(sql);
+            s.executeUpdate(sql);
 
             // some engine don't do rollbacks
-//				some versions of mySQL use MyISAM as the default engine.
+            // some versions of mySQL use MyISAM as the default engine.
 
             conn.commit(); // Used since autocommit is turned off.
 
 
             conn.setAutoCommit(true); // turn autocommit back on.
+            System.out.println("Table created.");
         } catch (SQLException e) {
             System.out.println("SQL error during DROP/CREATE");
             e.printStackTrace();

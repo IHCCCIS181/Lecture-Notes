@@ -32,10 +32,10 @@ public class StudentService implements StudentRepository {
             preparedStatement.executeUpdate();
 
             // TODO simplify this I DON'T THINK I NEED THIS
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                person.setId(generatedKeys.getInt(1));
-            }
+            // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            // if (generatedKeys.next()) {
+            //     person.setId(generatedKeys.getInt(1));
+            // }
         } catch (SQLException e) {
             e.printStackTrace();
         }

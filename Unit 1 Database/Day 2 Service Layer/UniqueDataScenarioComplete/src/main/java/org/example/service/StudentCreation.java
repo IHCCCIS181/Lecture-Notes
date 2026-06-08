@@ -11,14 +11,15 @@ public class StudentCreation {
     private Connection connection;
     private StudentService sService;
 
-    public void Create(String url, String user, String pass, String dbName, String tableName){
-        sService =  new StudentService(url, user, pass, dbName, tableName);
+    public void Create(String url, String user, String pass, String dbName, String tableName) {
+        sService = new StudentService(url, user, pass, dbName, tableName);
         createDB(url, user, pass, dbName);
         createTable(url, user, pass, dbName, tableName);
-        seedPeople("src/main/java/org/example/data/Students.json");
+        seedPeople(
+                "Unit 1 Database/Day 2 Service Layer/UniqueDataScenarioComplete/src/main/java/org/example/data/Students.json");
     }
 
-    //TODO only create the table if it doesn't exists
+    // TODO only create the table if it doesn't exists
     public void createTable(String url, String user, String pass, String dbName, String tableName) {
         try {
             connection = DriverManager.getConnection((url + dbName), user, pass);
@@ -30,17 +31,15 @@ public class StudentCreation {
             s = connection.createStatement();
 
             s.executeUpdate("DROP TABLE IF EXISTS " + tableName);
-            String createStatement = (
-                    "CREATE TABLE student ("
-                            + "id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
-                            + "PRIMARY KEY (id),"
-                            + "name VARCHAR(40), "
-                            + "age INT, "
-                            + "gender CHAR(1), "
-                            + "major VARCHAR(225),"
-                            + "graduation INT"
-                            + ")"
-            );
+            String createStatement = ("CREATE TABLE student ("
+                    + "id INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+                    + "PRIMARY KEY (id),"
+                    + "name VARCHAR(40), "
+                    + "age INT, "
+                    + "gender CHAR(1), "
+                    + "major VARCHAR(225),"
+                    + "graduation INT"
+                    + ")");
             System.out.println(createStatement);
             s.executeUpdate(createStatement + " ENGINE = innoDB");
         } catch (SQLException e) {
@@ -49,7 +48,7 @@ public class StudentCreation {
         }
     }
 
-    //TODO only create the database if it doesn't exists
+    // TODO only create the database if it doesn't exists
     public void createDB(String url, String user, String pass, String dbName) {
         try {
             connection = DriverManager.getConnection(url, user, pass);
@@ -76,7 +75,7 @@ public class StudentCreation {
         try {
             String query = "SELECT COUNT(*) FROM student";
             try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(query)) {
+                    ResultSet resultSet = statement.executeQuery(query)) {
                 if (resultSet.next()) {
                     int rowCount = resultSet.getInt(1);
                     return rowCount == 0;

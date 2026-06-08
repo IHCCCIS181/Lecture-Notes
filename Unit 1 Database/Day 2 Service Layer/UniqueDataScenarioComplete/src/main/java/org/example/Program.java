@@ -14,18 +14,18 @@ public class Program {
     public static String dbUsername = Optional.ofNullable(System.getenv("DB_USERNAME")).orElse("root");
     public static String dbPassword = Optional.ofNullable(System.getenv("DB_PASSWORD")).orElse("root");
     public static StudentCreation sCreate = new StudentCreation();
-    public static StudentService studentService = new StudentService(dbUrl, dbUsername, dbPassword, "STUDENTS", "student" );
+    public static StudentService studentService = new StudentService(dbUrl, dbUsername, dbPassword, "STUDENTS",
+            "student");
 
     public static void main(String[] args) {
-        //create db and table
+        // create db and table
         sCreate.Create(dbUrl, dbUsername, dbPassword, "STUDENTS", "student");
 
-        //TODO add this major in one line
+        // TODO add this major in one line
         ArrayList<String> subjects = new ArrayList<>();
         subjects.add("math");
-        studentService.insertPerson(new Graduate("Joe", 19, 'M'
-                , subjects , 2024));
-        //TODO update a person
+        studentService.insertPerson(new Graduate("Joe", 19, 'M', subjects, 2024));
+        // TODO update a person
 
         studentService.getAllPeople().forEach(System.out::println);
 
@@ -35,6 +35,6 @@ public class Program {
     }
 
     private static void updatePerson() {
-        //TODO finish this method
+        // TODO finish this method
     }
 }

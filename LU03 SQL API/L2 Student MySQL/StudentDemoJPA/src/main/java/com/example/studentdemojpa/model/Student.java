@@ -7,15 +7,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "students")
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "student_id")
@@ -32,11 +31,9 @@ public class Student {
     private Gender gender;
 
     @ElementCollection
-    @CollectionTable(
-            name = "student_majors",
-//            IDK why JetBrains can't find the id it is there.
-            joinColumns = @JoinColumn(name = "id")
-    )
+    @CollectionTable(name = "student_majors",
+            // IDK why JetBrains can't find the id it is there.
+            joinColumns = @JoinColumn(name = "id"))
     private List<String> majors;
 
     @Column(name = "graduation_year")

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/")
 public class StudentController {
 
-    //https://www.baeldung.com/java-spring-field-injection-cons
+    // https://www.baeldung.com/java-spring-field-injection-cons
     @Autowired
     private StudentRepository sRepository;
 

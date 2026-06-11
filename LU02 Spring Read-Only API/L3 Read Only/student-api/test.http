@@ -1,0 +1,67 @@
+@host = http://localhost:8080
+@studentsEndpoint = {{host}}/api/students
+
+### Get all students
+GET {{studentsEndpoint}}
+Accept: application/json
+
+> {%
+client.test("GET /api/students returns 200", function() {
+	client.assert(response.status === 200, "Expected status 200");
+});
+
+client.test("GET /api/students returns an array", function() {
+	client.assert(Array.isArray(response.body), "Expected response body to be an array");
+	client.assert(response.body.length >= 1, "Expected at least one student");
+});
+%}
+
+### Get student by id (existing)
+GET {{studentsEndpoint}}/1
+Accept: application/json
+
+> {%
+client.test("GET /api/students/1 returns 200", function() {
+	client.assert(response.status === 200, "Expected status 200");
+});
+
+client.test("GET /api/students/1 returns Jill", function() {
+	client.assert(response.body.id === 1, "Expected id to be 1");
+	client.assert(response.body.name === "Jill", "Expected name to be Jill");
+});
+%}
+
+### Get student by id (not found)
+GET {{studentsEndpoint}}/999
+Accept: application/json
+
+> {%
+client.test("GET /api/students/999 returns 404", function() {
+	client.assert(response.status === 404, "Expected status 404");
+});
+%}
+
+### Get student by name (existing)
+GET {{studentsEndpoint}}/name/Bob
+Accept: application/json
+
+> {%
+client.test("GET /api/students/name/Bob returns 200", function() {
+	client.assert(response.status === 200, "Expected status 200");
+});
+
+client.test("GET /api/students/name/Bob returns Bob", function() {
+	client.assert(response.body.name === "Bob", "Expected name to be Bob");
+	client.assert(response.body.id === 0, "Expected id to be 0");
+});
+%}
+
+### Get student by name (not found)
+GET {{studentsEndpoint}}/name/DoesNotExist
+Accept: application/json
+
+> {%
+client.test("GET /api/students/name/DoesNotExist returns 404", function() {
+	client.assert(response.status === 404, "Expected status 404");
+});
+%}

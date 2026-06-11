@@ -1,0 +1,7 @@
+###
+GET http://localhost:8080/demo/all
+
+
+### Create new User
+POST http://localhost:8080/demo/add?name=bob&email=bob@example.com
+

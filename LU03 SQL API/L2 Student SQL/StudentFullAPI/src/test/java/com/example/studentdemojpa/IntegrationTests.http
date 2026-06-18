@@ -6,7 +6,7 @@ Content-Type: application/json
   "studentId": "32425",
   "name": "Luke",
   "age": 19,
-  "gender": "M",
+  "gender": "Male",
   "majors": ["Computer Software", "Robotics"],
   "graduationYear": 2019
 }
@@ -18,7 +18,7 @@ Content-Type: application/json
   "studentId": "",
   "name": "",
   "age": -1,
-  "gender": "M",
+  "gender": "Male",
   "majors": ["Computer Software", "Robotics"],
   "graduationYear": 2019
 }

@@ -19,7 +19,6 @@ import java.util.List;
 @RequestMapping(path = "/")
 public class MainController {
 
-
     private final StudentService studentService;
 
     @Autowired
@@ -27,20 +26,19 @@ public class MainController {
         this.studentService = studentService;
     }
 
-//    https://www.jetbrains.com/help/objc/exploring-http-syntax.html#dynamic-variables
+    // https://www.jetbrains.com/help/objc/exploring-http-syntax.html#dynamic-variables
 
-//    TODO add custom exceptions
+    // TODO add custom exceptions
 
-    //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
     @PostMapping(path = "/add", consumes = "application/json")
     public ResponseEntity<String> addNewStudent(@RequestBody Student student) {
-        try{
+        try {
             studentService.saveStudent(student);
             return new ResponseEntity<>("Saved", HttpStatus.CREATED);
-        }catch(ConstraintViolationException ex){
+        } catch (ConstraintViolationException ex) {
             return new ResponseEntity<>("Invalid input, check your fields" + ex.toString(), HttpStatus.BAD_REQUEST);
         }
-
 
     }
 
@@ -53,7 +51,6 @@ public class MainController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable("id") int studentID) {
@@ -68,7 +65,8 @@ public class MainController {
     }
 
     @PatchMapping(path = "/update/{id}", consumes = "application/json")
-    public ResponseEntity<String> updateStudent(@PathVariable("id") long studentID, @RequestBody StudentUpdateDto updatedStudentDto) {
+    public ResponseEntity<String> updateStudent(@PathVariable("id") long studentID,
+            @RequestBody StudentUpdateDto updatedStudentDto) {
         try {
             studentService.updateStudent(studentID, updatedStudentDto);
             return new ResponseEntity<>("Updated", HttpStatus.OK);
@@ -76,7 +74,6 @@ public class MainController {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
-
 
     @GetMapping("/findByName/{name}")
     @ResponseBody
@@ -93,6 +90,3 @@ public class MainController {
     }
 
 }
-
-
-

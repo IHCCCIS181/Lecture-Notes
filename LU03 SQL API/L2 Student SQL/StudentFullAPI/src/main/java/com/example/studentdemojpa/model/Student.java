@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "students")
+// TODO swap this with @Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -40,7 +41,7 @@ public class Student {
 
     @ElementCollection
     @CollectionTable(name = "student_majors",
-            // IDK why JetBrains can't find the id it is there.
+            // IDK it can't find the id it is there.
             joinColumns = @JoinColumn(name = "id"))
     private List<String> majors;
 

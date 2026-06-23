@@ -1,10 +1,7 @@
 package com.example.studentdemojpa.controller;
 
-import com.example.studentdemojpa.model.Student;
-import com.example.studentdemojpa.model.StudentUpdateDto;
-import com.example.studentdemojpa.service.NoStudentFoundException;
-import com.example.studentdemojpa.service.StudentNameEmptyException;
-import com.example.studentdemojpa.service.StudentService;
+import com.example.studentdemojpa.model.*;
+import com.example.studentdemojpa.service.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -75,6 +72,8 @@ public class MainController {
         }
     }
 
+    // Path variable /findByName/{name} a RequestParam would be
+    // /findByName?name=John
     @GetMapping("/findByName/{name}")
     @ResponseBody
     public ResponseEntity<?> findStudentsByName(@PathVariable("name") String name) {
@@ -82,9 +81,9 @@ public class MainController {
         try {
             students = studentService.findStudentsByName(name);
         } catch (NoStudentFoundException e) {
-            return new ResponseEntity<>("Invalid input", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid input", HttpStatus.NOT_FOUND);
         } catch (StudentNameEmptyException e) {
-            return new ResponseEntity<>("Name can not be blank", HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Name can not be blank", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(students, HttpStatus.OK);
     }

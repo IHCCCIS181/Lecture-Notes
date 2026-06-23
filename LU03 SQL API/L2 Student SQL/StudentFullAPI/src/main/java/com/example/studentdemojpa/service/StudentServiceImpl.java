@@ -24,9 +24,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAll() throws NoStudentFoundException {
-        List<Student> students =  (List<Student>) studentRepository.findAll();
-        if(students.isEmpty()){
-            throw  new NoStudentFoundException("No Students found");
+        List<Student> students = (List<Student>) studentRepository.findAll();
+        if (students.isEmpty()) {
+            throw new NoStudentFoundException("No Students found");
         }
         return students;
     }

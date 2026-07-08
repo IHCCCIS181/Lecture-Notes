@@ -14,6 +14,7 @@ export type Comment = {
     id?: string;
     text: string;
     authorUsername: string;
+    fundraiserId?: string;
     postedAt?: string;
     timeAgo?: string;
 };

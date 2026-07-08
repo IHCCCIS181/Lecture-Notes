@@ -25,7 +25,6 @@ To update the OpenAPI specification, use the following command:
 npx openapi-ts -i http://localhost:8080/v3/api-docs -o src/lib/api
 ```
 
-
 ## Dependencies
 
 - [Spring Boot]()

@@ -2,7 +2,7 @@
 @port = 8080
 @baseUrl = {{host}}:{{port}}
 @fundraisers = /api/fundraisers
-@fundraiserId = fund-1
+@fundraiserId = 56bd2e09-0faa-4421-aac3-495ef5744f65
 @commentId = 00000000-0000-0000-0000-000000000001
 
 ### Get comments for a fundraiser

@@ -1,7 +1,6 @@
 package org.example.fundspark.controller;
 
 import jakarta.validation.Valid;
-import org.example.fundspark.model.Comment;
 import org.example.fundspark.model.Fundraiser;
 import org.example.fundspark.service.FundraiserService;
 import org.springframework.http.HttpStatus;
@@ -46,11 +45,6 @@ public class FundraiserController {
     public ResponseEntity<Void> deleteFundraiser(@PathVariable String id) {
         fundraiserService.deleteFundraiser(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/{id}/comments")
-    public ResponseEntity<List<Comment>> getComments(@PathVariable String id) {
-        return ResponseEntity.ok(fundraiserService.getComments(id));
     }
 
 }

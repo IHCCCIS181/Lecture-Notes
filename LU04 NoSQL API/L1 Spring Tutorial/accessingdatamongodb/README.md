@@ -20,7 +20,17 @@ Install
 docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
 ```
 
-### Locally Download (DONT DO THIS)
+> Had a problem with MongoDB 8.0._ had to use MongoDB 7.0._ instead. If you have problems, try this:
+
+```bash
+podman run -d \
+  --name my-old-mongo \
+  -p 27017:27017 \
+  -v mongo_data:/data/db \
+  mongo:7.0
+```
+
+### Locally Download (DON'T DO THIS)
 
 First, we need to download the serve.
 [download link](https://www.mongodb.com/try/download/community)

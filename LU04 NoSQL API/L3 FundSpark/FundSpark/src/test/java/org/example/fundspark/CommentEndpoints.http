@@ -1,0 +1,21 @@
+@host = http://localhost
+@port = 8080
+@baseUrl = {{host}}:{{port}}
+@fundraisers = /api/fundraisers
+@fundraiserId = fund-1
+@commentId = 00000000-0000-0000-0000-000000000001
+
+### Get comments for a fundraiser
+GET {{baseUrl}}{{fundraisers}}/{{fundraiserId}}/comments
+
+### Add comment to fundraiser
+POST {{baseUrl}}{{fundraisers}}/{{fundraiserId}}/comments
+Content-Type: application/json
+
+{
+  "text": "This looks great",
+  "authorUsername": "sorrymint"
+}
+
+### Delete comment from fundraiser
+DELETE {{baseUrl}}{{fundraisers}}/{{fundraiserId}}/comments/{{commentId}}

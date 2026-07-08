@@ -1,17 +1,18 @@
 package org.example.fundspark.model;
 
 import jakarta.validation.constraints.*;
-import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 @Data
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "fundraiser")
 public class Fundraiser {
 
@@ -23,7 +24,7 @@ public class Fundraiser {
     @Length(max = 500)
     private String description;
 
-    @NotBlank(message = "Must be logged in to make fundraiser")
+    @NotNull(message = "Owner cannot be null")
     private User owner;
 
     private Date startDate;
@@ -35,8 +36,4 @@ public class Fundraiser {
     private double currentAmount;
 
     private ArrayList<Comment> comments = new ArrayList<>();
-
-    public Fundraiser(User user) {
-        this.owner = user;
-    }
 }

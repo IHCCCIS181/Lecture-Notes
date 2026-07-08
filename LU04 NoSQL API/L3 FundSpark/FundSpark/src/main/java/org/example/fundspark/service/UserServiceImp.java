@@ -1,58 +1,65 @@
 package org.example.fundspark.service;
 
-import jakarta.validation.*;
-import org.example.fundspark.exception.PasswordNotCorrectException;
-import org.example.fundspark.exception.UsernameNotFoundException;
-import org.example.fundspark.model.Fundraiser;
-import org.example.fundspark.model.FundraiserDTO;
 import org.example.fundspark.model.User;
-import org.example.fundspark.repository.FundraiserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.example.fundspark.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
 
-    private final FundraiserRepository fundraiserRepository;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final Validator validator;
+    private final UserRepository userRepository;
 
-
-    @Autowired
-    public UserServiceImp(FundraiserRepository fundraiserRepository) {
-        this.fundraiserRepository = fundraiserRepository;
-//        this.bCryptPasswordEncoder = (BCryptPasswordEncoder) passwordEncoder; // Cast to BCryptPasswordEncoder
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        this.validator = factory.getValidator();
+    public UserServiceImp(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
-
-    @Autowired
-    private ValidatorFactory validatorFactory;
 
     @Override
-    public void registerUser(User user) throws ConstraintViolationException{
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        if(!violations.isEmpty()){
-            throw new ConstraintViolationException(violations);
+    public User createUser(User user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
         }
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Fundraiser fundraiser = new Fundraiser(user);
-        fundraiserRepository.save(fundraiser);
+        if (user.getId() == null || user.getId().isBlank()) {
+            user.setId(UUID.randomUUID().toString());
+        }
+        return userRepository.save(user);
     }
 
-//    @Override
-//    public User loginUser(String username, String password) throws UsernameNotFoundException, PasswordNotCorrectException{
-//        User user = fundraiserRepository.findUserByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException(username);
-//        }
-//        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
-//            throw new PasswordNotCorrectException(username);
-//        }
-//        return user;
-//    }
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> getUserById(String id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public User updateUser(String id, User user) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        existingUser.setUsername(user.getUsername());
+        existingUser.setPassword(user.getPassword());
+        return userRepository.save(existingUser);
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

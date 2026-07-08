@@ -9,26 +9,30 @@ Don't need to build it together, you can just run though the project and see how
 ./mvnw spring-boot:run
 ```
 
-Run the frontend. There is a simple HTML version and a Next.js version. You can run either one of them.
+Look at the OpenAPI docs at `http://localhost:8080/v3/api-docs`.
 
-[HTML version](./BasicHTMLFrontEnd/index.html)
-[Next.js version](./student-next-client/pages/index.js)
-
-To Start the Next.js version, run the following commands:
+To run the Svelte frontend:
 
 ```bash
-cd student-next-client
-npm install
+cd web-fund-spark
+npm i
 npm run dev
 ```
+
+To update the OpenAPI specification, use the following command:
+
+```bash
+npx openapi-ts -i http://localhost:8080/v3/api-docs -o src/lib/api
+```
+
 
 ## Dependencies
 
 - [Spring Boot]()
 - [Validation]() https://www.geeksforgeeks.org/hibernate-validator-with-example/
-- [Security]()
 - [Lombok]()
-- [Mongodb Diver]()
+- [OpenAPI]()
+- [Mongodb Data Diver]()
 
 ## Database / Model
 

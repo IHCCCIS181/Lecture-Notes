@@ -1,10 +1,9 @@
 package org.example.fundspark.model;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +31,9 @@ public class Comment {
     private LocalDateTime postedAt;
 
     public String getTimeAgo() {
+        if (postedAt == null) {
+            return "just now";
+        }
         Instant now = Instant.now();
         Instant postedAtInstant = postedAt.atZone(ZoneId.systemDefault()).toInstant();
 

@@ -1,0 +1,41 @@
+@host = http://localhost
+@port = 8080
+@baseUrl = {{host}}:{{port}}
+@users = /api/users
+@userId = user-1
+
+### Create user
+POST {{baseUrl}}{{users}}
+Content-Type: application/json
+
+{
+  "username": "sorrymint",
+  "password": "Password@23"
+}
+
+### Register user
+POST {{baseUrl}}{{users}}/register
+Content-Type: application/json
+
+{
+  "username": "kindmint",
+  "password": "Password@23"
+}
+
+### Get all users
+GET {{baseUrl}}{{users}}
+
+### Get user by id
+GET {{baseUrl}}{{users}}/{{userId}}
+
+### Update user
+PUT {{baseUrl}}{{users}}/{{userId}}
+Content-Type: application/json
+
+{
+  "username": "sorrymint-updated",
+  "password": "Password@24"
+}
+
+### Delete user
+DELETE {{baseUrl}}{{users}}/{{userId}}

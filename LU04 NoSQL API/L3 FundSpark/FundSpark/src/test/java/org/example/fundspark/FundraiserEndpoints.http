@@ -1,0 +1,53 @@
+@host = http://localhost
+@port = 8080
+@baseUrl = {{host}}:{{port}}
+@fundraisers = /api/fundraisers
+@fundraiserId = fund-1
+
+### Create fundraiser
+POST {{baseUrl}}{{fundraisers}}
+Content-Type: application/json
+
+{
+  "title": "Help the clinic",
+  "description": "Raise money for supplies",
+  "owner": {
+    "id": "user-1",
+    "username": "sorrymint",
+    "password": "Password@23"
+  },
+  "startDate": "2026-07-08T00:00:00.000Z",
+  "endDate": "2026-08-08T00:00:00.000Z",
+  "targetAmount": 1000,
+  "currentAmount": 0
+}
+
+### Get all fundraisers
+GET {{baseUrl}}{{fundraisers}}
+
+### Get fundraiser by id
+GET {{baseUrl}}{{fundraisers}}/{{fundraiserId}}
+
+### Update fundraiser
+PUT {{baseUrl}}{{fundraisers}}/{{fundraiserId}}
+Content-Type: application/json
+
+{
+  "title": "Help the clinic more",
+  "description": "Raise even more money for supplies",
+  "owner": {
+    "id": "user-1",
+    "username": "sorrymint",
+    "password": "Password@23"
+  },
+  "startDate": "2026-07-08T00:00:00.000Z",
+  "endDate": "2026-08-08T00:00:00.000Z",
+  "targetAmount": 1500,
+  "currentAmount": 100
+}
+
+### Get fundraiser comments
+GET {{baseUrl}}{{fundraisers}}/{{fundraiserId}}/comments
+
+### Delete fundraiser
+DELETE {{baseUrl}}{{fundraisers}}/{{fundraiserId}}

@@ -1,9 +1,20 @@
 package org.example.fundspark.service;
 
-import org.example.fundspark.exception.*;
 import org.example.fundspark.model.*;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface UserService {
-    void registerUser(User user);
-//    User loginUser(String username, String password) throws UsernameNotFoundException, PasswordNotCorrectException;
+    User createUser(User user);
+
+    List<User> getAllUsers();
+
+    Optional<User> getUserById(String id);
+
+    User updateUser(String id, User user);
+
+    void deleteUser(String id);
+
+    Optional<User> findByUsername(String username);
 }

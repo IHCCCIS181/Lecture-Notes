@@ -2,6 +2,7 @@ package org.example.fundspark.service;
 
 import org.example.fundspark.model.Comment;
 import org.example.fundspark.model.Fundraiser;
+import org.example.fundspark.repository.CommentRepository;
 import org.example.fundspark.repository.FundraiserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,21 +11,22 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class FundraiserServiceImp implements FundraiserService {
 
     private final FundraiserRepository fundraiserRepository;
+    private final CommentRepository commentRepository;
 
-    public FundraiserServiceImp(FundraiserRepository fundraiserRepository) {
+    public FundraiserServiceImp(FundraiserRepository fundraiserRepository, CommentRepository commentRepository) {
         this.fundraiserRepository = fundraiserRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
     public Fundraiser createFundraiser(Fundraiser fundraiser) {
         if (fundraiser.getId() == null || fundraiser.getId().isBlank()) {
-            fundraiser.setId(UUID.randomUUID().toString());
+            fundraiser.setId(java.util.UUID.randomUUID().toString());
         }
         if (fundraiser.getComments() == null) {
             fundraiser.setComments(new ArrayList<>());
@@ -66,30 +68,31 @@ public class FundraiserServiceImp implements FundraiserService {
 
     @Override
     public List<Comment> getComments(String fundraiserId) {
-        return getFundraiserById(fundraiserId).getComments();
+        return commentRepository.findByFundraiserId(fundraiserId);
     }
 
     @Override
     public Comment addComment(String fundraiserId, Comment comment) {
-        Fundraiser fundraiser = getFundraiserById(fundraiserId);
+        getFundraiserById(fundraiserId);
         if (comment.getId() == null) {
-            comment.setId(UUID.randomUUID());
+            comment.setId(java.util.UUID.randomUUID().toString());
         }
         if (comment.getPostedAt() == null) {
             comment.setPostedAt(LocalDateTime.now());
         }
-        fundraiser.getComments().add(comment);
-        fundraiserRepository.save(fundraiser);
-        return comment;
+        comment.setFundraiserId(fundraiserId);
+        return commentRepository.save(comment);
     }
 
     @Override
-    public void deleteComment(String fundraiserId, UUID commentId) {
-        Fundraiser fundraiser = getFundraiserById(fundraiserId);
-        boolean removed = fundraiser.getComments().removeIf(comment -> commentId.equals(comment.getId()));
-        if (!removed) {
+    public void deleteComment(String fundraiserId, String commentId) {
+        Comment comment = commentRepository.findByFundraiserIdAndId(fundraiserId, commentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found"));
+
+        if (comment == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found");
         }
-        fundraiserRepository.save(fundraiser);
+
+        commentRepository.delete(comment);
     }
 }

@@ -4,7 +4,6 @@ import org.example.fundspark.model.Comment;
 import org.example.fundspark.model.Fundraiser;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface FundraiserService {
     Fundraiser createFundraiser(Fundraiser fundraiser);
@@ -21,5 +20,5 @@ public interface FundraiserService {
 
     Comment addComment(String fundraiserId, Comment comment);
 
-    void deleteComment(String fundraiserId, UUID commentId);
+    void deleteComment(String fundraiserId, String commentId);
 }

@@ -4,7 +4,6 @@ import org.example.fundspark.model.Comment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CommentServiceImp implements CommentService {
@@ -26,7 +25,7 @@ public class CommentServiceImp implements CommentService {
     }
 
     @Override
-    public void deleteComment(String fundraiserId, UUID commentId) {
+    public void deleteComment(String fundraiserId, String commentId) {
         fundraiserService.deleteComment(fundraiserId, commentId);
     }
 }

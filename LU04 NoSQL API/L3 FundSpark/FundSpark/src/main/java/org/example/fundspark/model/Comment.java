@@ -5,20 +5,21 @@ import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Document(collection = "comments")
 public class Comment {
 
     @Id
-    private UUID id;
+    private String id;
 
     @NotBlank(message = "Comment text cannot be empty")
     @Length(max = 500)
@@ -26,6 +27,8 @@ public class Comment {
 
     @NotBlank(message = "Author username cannot be empty")
     private String authorUsername;
+
+    private String fundraiserId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime postedAt;
@@ -54,7 +57,7 @@ public class Comment {
     }
 
     public Comment(String text, String authorUsername) {
-        this.id = UUID.randomUUID();
+        this.id = java.util.UUID.randomUUID().toString();
         this.text = text;
         this.authorUsername = authorUsername;
         this.postedAt = LocalDateTime.now();

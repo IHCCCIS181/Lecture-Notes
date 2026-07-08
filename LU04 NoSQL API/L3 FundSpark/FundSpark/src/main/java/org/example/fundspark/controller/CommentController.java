@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -34,7 +33,7 @@ public class CommentController {
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable String fundraiserId,
-            @PathVariable UUID commentId) {
+            @PathVariable String commentId) {
         commentService.deleteComment(fundraiserId, commentId);
         return ResponseEntity.noContent().build();
     }

@@ -1,41 +1,80 @@
 package org.example.areaofrec;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import com.microsoft.playwright.*;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class WebControllerTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class WebControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @LocalServerPort
+    private int port;
 
-    @Test
-    void testValidFormSubmission() throws Exception {
-        mockMvc.perform(post("/")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED) //we will do JSON later
-                        .param("length", "5")
-                        .param("width", "10"))
-                .andExpect(status().isOk()) // expecting a successful response
-                .andExpect(view().name("result"));
+    private static Playwright playwright;
+    private static Browser browser;
+    private BrowserContext context;
+    private Page page;
+
+    private String getBaseUrl() {
+        return "http://localhost:" + port;
     }
 
+    @BeforeAll
+    static void launchBrowser() {
+        playwright = Playwright.create();
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+    }
+
+    @BeforeEach
+    void createContextAndPage() {
+        context = browser.newContext();
+        page = context.newPage();
+    }
+
+    @AfterEach
+    void closeContext() {
+        if (context != null)
+            context.close();
+    }
 
     @Test
-    void testInvalidFormSubmission() throws Exception {
-        mockMvc.perform(post("/")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("length", "-5")
-                        .param("width", "10"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("form"));
+    @DisplayName("Should successfully calculate area and navigate back")
+    void testSuccessfulAreaCalculation() {
+
+        page.navigate(getBaseUrl() + "/");
+
+        page.fill("#length", "5");
+        page.fill("#width", "4");
+        page.click("input[value='Calculate Area']");
+
+        assertThat(page.locator("h1")).hasText("Rectangle Area Calculator");
+
+        Locator areaSpan = page.locator("p >> span");
+        assertThat(areaSpan).hasText("20.0");
+
+        page.click("text=Go back to form");
+
+        // Use the helper method for the URL assertion too
+        assertThat(page).hasURL(getBaseUrl() + "/");
+        assertThat(page.locator("#length")).hasValue("0.0");
+    }
+
+    @Test
+    @DisplayName("Should trigger validation and render errors on invalid input")
+    void testValidationFailure() {
+
+        page.navigate(getBaseUrl() + "/");
+
+        page.fill("#length", "-5");
+        page.fill("#width", "");
+        page.click("input[value='Calculate Area']");
+
+        assertThat(page.locator("h1")).not().isVisible();
+
+        Locator errorSpans = page.locator(".error");
+        assertThat(errorSpans.first()).isVisible();
     }
 }

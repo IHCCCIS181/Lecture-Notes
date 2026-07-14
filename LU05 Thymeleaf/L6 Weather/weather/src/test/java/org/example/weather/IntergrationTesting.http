@@ -1,0 +1,53 @@
+# Test Add Weather
+
+### Add City
+POST http://localhost:8080/api/weather
+Content-Type: application/json
+
+{
+  "city": "St. Louis",
+  "state": "Missouri",
+  "tempC": -2,
+  "precipitation": 0,
+  "humidity": 0.40,
+  "windKmH": 10
+}
+
+# ### Add City
+# POST http://localhost:8080/api/weather
+# Content-Type: application/json
+
+# {
+#   "city": "Fairfield",
+#   "state": "Iowa",
+#   "tempC": -1,
+#   "precipitation": 0,
+#   "humidity": 0.50,
+#   "windKmH": 12
+# }
+
+# ### GET By State
+# GET http://localhost:8080/api/weather/state/IA
+
+
+
+# ### Get By City
+# GET http://localhost:8080/api/weather/Ottumwa
+
+
+# ### Update Weather
+# PUT http://localhost:8080/api/weather
+# Content-Type: application/json
+
+# {
+#   "city": "",
+#   "state": "IA",
+#   "tempC": 0,
+#   "precipitation": 0,
+#   "humidity": 0,
+#   "windKmH": 0
+# }
+
+# ### Delete by City and State
+# DELETE http://localhost:8080/api/weather/Ottumwa/IA
+

@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en-US">
+    <head>
+        <title>Weather Display</title>
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <h1>Weather Information</h1>
+        <p>Filter by city, state, or both.</p>
+
+        <form th:action="@{/}" method="get" th:object="${weatherForm}">
+            <input type="hidden" th:field="*{submitted}" value="true" />
+
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" th:field="*{city}" /><br /><br />
+            <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></p>
+
+            <label for="state">Select State:</label>
+            <select id="state" th:field="*{state}">
+                <option value="">-- Select --</option>
+                <option
+                    th:each="stateOption : ${T(org.example.weather.model.State).values()}"
+                    th:value="${stateOption.name()}"
+                    th:text="${stateOption}"
+                ></option></select
+            ><br /><br />
+            <p
+                th:each="error : ${#fields.globalErrors()}"
+                th:text="${error}"
+            ></p>
+
+            <input type="submit" value="Submit" />
+            <a href="/">Reset</a>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Temperature (C)</th>
+                    <th>Temperature (F)</th>
+                    <th>Precipitation</th>
+                    <th>Humidity</th>
+                    <th>Wind Speed (km/h)</th>
+                    <th>Wind Speed (mph)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="weather : ${weatherList}">
+                    <td id="cityName" th:text="${weather.city}"></td>
+                    <td th:text="${weather.state}"></td>
+                    <td th:text="${weather.tempC}"></td>
+                    <td th:text="${weather.tempF}"></td>
+                    <td th:text="${weather.precipitation}"></td>
+                    <td th:text="${weather.humidity}"></td>
+                    <td th:text="${weather.windKmH}"></td>
+                    <td th:text="${weather.windMpH}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

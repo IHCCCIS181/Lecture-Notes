@@ -35,6 +35,52 @@ npx openapi-ts -i http://localhost:8080/v3/api-docs -o src/lib/api
 
 ## Database / Model
 
+
+```mermaid
+classDiagram
+    direction LR
+
+    class User {
+        +String id
+        +String username
+        +String password
+    }
+
+    class Fundraiser {
+        +String id
+        +String title
+        +String description
+        +User owner
+        +Date startDate
+        +Date endDate
+        +double targetAmount
+        +double currentAmount
+        +ArrayList~Comment~ comments
+    }
+
+    class Comment {
+        +String id
+        +String text
+        +String authorUsername
+        +String fundraiserId
+        +LocalDateTime postedAt
+        +getTimeAgo() String
+    }
+
+    class FundraiserDTO {
+        +String title
+        +String description
+        +Date startDate
+        +Date endDate
+        +double targetAmount
+    }
+
+    %% Relationships
+    Fundraiser "1" --> "1" User : owner
+    Fundraiser "1" --> "*" Comment : contains (embedded/referenced)
+    Comment "1" ..> "1" Fundraiser : references (fundraiserId)
+```
+
 ## Endpoints
 
 ## Frontend

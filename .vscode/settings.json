@@ -1,4 +1,4 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "cSpell.words": ["itinfra"]
+    "cSpell.words": ["itinfra", "Thymeleaf"]
 }

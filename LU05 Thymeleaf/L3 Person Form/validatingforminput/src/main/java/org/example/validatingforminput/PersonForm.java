@@ -3,34 +3,20 @@ package org.example.validatingforminput;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PersonForm {
 
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters")
     private String name;
 
     @NotNull
-    @Min(18)
-    private int age;
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String toString() {
-        return "Person(Name: " + this.name + ", Age: " + this.age + ")";
-    }
+    @Min(value = 18, message = "Age must be at least 18")
+    private Integer age;
 }

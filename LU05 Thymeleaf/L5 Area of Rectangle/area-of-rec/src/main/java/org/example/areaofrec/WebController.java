@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class WebController {
+
+    //Make the validation actyly work 
+
     @GetMapping("/")
     public String showForm(Rectangle rectangle) {
         return "form";

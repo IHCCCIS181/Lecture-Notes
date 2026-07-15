@@ -17,7 +17,10 @@ The goal is to reinforce core Thymeleaf concepts and introduce Playwright for te
 
 ## Build the project
 
--
+- Build `Rectangle.java` class first.
+- Then build the Controller class.
+- Finally build the html template.
+    - Add the image and CSS.
 
 ## Run the project
 
@@ -31,4 +34,4 @@ Run the Playwright tests
 ./mvnw test
 ```
 
-On my system, the tests didn't work run headless.
+On my system, the tests didn't work run headless. So set the `headless` option to `false` in the `PlaywrightTest.java` file.

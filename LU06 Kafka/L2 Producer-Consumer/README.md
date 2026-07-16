@@ -17,7 +17,7 @@ Both will use the same dependencies:
 
 ## Set Up Kafka
 
-If you cleaned up your Docker environment since last lecture. Please recreate the Kafka container with the the compose file linked [here]().
+If you cleaned up your Docker environment since last lecture. Please recreate the Kafka container with the the compose file linked [here](https://github.com/IHCCCIS181/Lecture-Notes/blob/main/LU06%20Kafka/L1%20Intro/docker-compose.yml).
 
 ---
 

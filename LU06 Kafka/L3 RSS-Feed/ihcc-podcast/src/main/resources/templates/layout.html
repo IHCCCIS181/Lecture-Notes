@@ -1,0 +1,19 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="common-head(title)">
+        <meta charset="UTF-8" />
+        <title th:text="${title}">Podcast Hub</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <header th:fragment="header" class="max-w-xl mx-auto my-2">
+            <h1 class="text-xl font-bold">Podcast Hub</h1>
+            <nav class="text-sm">
+                <a href="/" class="text-blue-600 underline">Publish Form</a>
+                <span> | </span>
+                <a href="/feed" class="text-blue-600 underline">View Feed</a>
+            </nav>
+            <hr class="my-2 border-gray-300" />
+        </header>
+    </body>
+</html>

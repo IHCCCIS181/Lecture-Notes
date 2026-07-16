@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: common-head('Podcast Feed')}"></head>
+<body class="max-w-xl mx-auto p-2">
+
+    <header th:replace="~{layout :: header}"></header>
+
+    <main>
+        <div class="flex justify-between items-center mb-2">
+            <h2 class="text-lg font-bold">Active Podcast Catalog</h2>
+            <button onclick="window.location.reload();" class="border border-black px-2 py-0.5 text-xs bg-gray-100 hover:bg-gray-200">
+                Refresh
+            </button>
+        </div>
+
+        <div th:if="${#lists.isEmpty(episodes)}" class="italic text-gray-500">
+            No episodes found.
+        </div>
+
+        <div>
+            <div th:each="ep : ${episodes}" class="border-t border-gray-300 py-2">
+                <h3 class="font-bold" th:text="${ep.title}">Title</h3>
+                <p class="text-xs text-gray-600" th:text="'By: ' + ${ep.author}">Author</p>
+                <p class="text-sm my-1 text-gray-800" th:text="${ep.description}">Description</p>
+                <p class="text-xs">
+                    Audio Link: <a th:href="${ep.audioUrl}" th:text="${ep.audioUrl}" target="_blank" class="text-blue-600 underline">URL</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -18,6 +18,7 @@
             <label for="state">Select State:</label>
             <select id="state" th:field="*{state}">
                 <option value="">-- Select --</option>
+                <!-- Make sure to change package name if necessary -->
                 <option
                     th:each="stateOption : ${T(org.example.weather.model.State).values()}"
                     th:value="${stateOption.name()}"

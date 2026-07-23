@@ -13,11 +13,13 @@ Both will use the same dependencies:
 - Spring Boot DevTools
 - Name one project `kafka-producer` and the other `kafka-consumer`.
 
+<!-- TODO add pre-configuration link -->
+
 ---
 
 ## Set Up Kafka
 
-If you cleaned up your Docker environment since last lecture. Please recreate the Kafka container with the the compose file linked [here](https://github.com/IHCCCIS181/Lecture-Notes/blob/main/LU06%20Kafka/L1%20Intro/docker-compose.yml).
+If you cleaned up your Docker environment since last lecture. Please recreate the Kafka container with the the compose file linked [here](https://github.com/IHCCCIS181/Lecture-Notes/blob/main/LU06%20Kafka/L1%20Intro/docker-compose.yml) with the command `docker compose up -d`.
 
 ---
 
@@ -32,7 +34,10 @@ Set `application.properties` to:
 ```
 spring.application.name=kafka-producer
 spring.kafka.bootstrap-servers=localhost:9092
+
 ```
+
+<!-- TODO configure if topic "test-topic" exists -->
 
 ### Java Code
 

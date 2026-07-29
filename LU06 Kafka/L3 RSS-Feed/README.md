@@ -1,6 +1,9 @@
 # L3 RSS Feed
 
-This project is a simple Thymleaf web application that allows users to submit podcast episodes and view them in a feed. It is technically no more complex then L2 example.
+This project is a simple Thymeleaf web application that allows users to submit podcast episodes and view them in a feed.
+It is technically (Kafka wise) no more complex then L2 example.
+
+<!-- TODO change this project to use Jackson instead of Gson -->
 
 ## Create the Project
 

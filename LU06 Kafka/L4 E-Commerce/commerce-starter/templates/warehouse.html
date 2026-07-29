@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::main})}">
+<body>
+    <main>
+        <h1 class="mb-2">Live Warehouse Dashboard</h1>
+        
+        <ul>
+            <li th:each="order : ${orders}" class="mb-2">
+                Item: <span th:text="${order.itemName}"></span> | 
+                Qty: <span th:text="${order.quantity}"></span> | 
+                Customer: <span th:text="${order.customerEmail}"></span>
+            </li>
+        </ul>
+        
+        <button onclick="window.location.reload();">Refresh Orders</button>
+    </main>
+</body>
+</html>
